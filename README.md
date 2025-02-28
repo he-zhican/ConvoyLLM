@@ -11,3 +11,12 @@ The overall framework of the multi-lane convoy formation control method. It cont
 
 ![reasoningModule](Asserts/ReasoningModule.png)
 A case of the Reasoning module process. This simple obstacle avoidance scenario illustrates how the reasoning module collects information from the ego vehicle, environment vehicles, and neighbors, then generates a scene description for decision-making by the large model. In the figure, veh7 changes lanes to the right due to a slow vehicle ahead, while veh3 outputs an IDLE decision to follow the neighboring vehicle in the same lane.
+
+# Gettting Started
+
+## Install dependencies
+- Create a new conda virtual env
+'''
+conda env create -f environment.yml
+conda activate Convoy
+'''
