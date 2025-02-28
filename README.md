@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/1afc338b-cc62-4961-a0e7-72b33b9b0f00)# ConvoyLLM: Dynamic Multi-Lane Convoy Control Using LLMs
+# ConvoyLLM: Dynamic Multi-Lane Convoy Control Using LLMs
 
 ## [Paper](https://arxiv.org/abs/2502.17529) & [Project Page](https://he-zhican.github.io/ConvoyLLM)
 This is the official implementation of the paper ConvoyLLM: Dynamic Multi-Lane Convoy Control Using LLMs.
