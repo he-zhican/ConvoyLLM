@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConvoyLLM: Dynamic Multi-Lane Convoy Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #34495e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: var(--text-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .authors {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .affiliations {
+            margin: 10px 0;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .badges {
+            margin: 20px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .code-badge {
+            background: #24292e;
+            color: white;
+        }
+
+        .arxiv-badge {
+            background: #b31b1b;
+            color: white;
+        }
+
+        section {
+            margin: 40px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        .framework-img {
+            width: 80%;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .framework-img {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+		/* 新增视频样式 */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sub-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+        }
+		.video-vertical {
+			display: flex;
+			flex-direction: column; /* 垂直排列 */
+			gap: 20px; /* 视频之间的间距 */
+			margin: 20px 0;
+		}
+
+		video {
+			width: 100%; /* 视频宽度占满容器 */
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ConvoyLLM: Dynamic Multi-Lane Convoy Control Using LLMs</h1>
+        
+        <div class="authors">
+            Liping Lu<sup>1</sup>, Zhican He<sup>1</sup>, Duanfeng Chu<sup>2</sup>∗, 
+            Rukang Wang<sup>2</sup>, Saiqian Peng<sup>2</sup>, Pan Zhou<sup>3</sup>
+        </div>
+
+        <div class="affiliations">
+            <sup>1</sup> School of Computer Science and Artificial Intelligence, Wuhan University of Technology<br>
+            <sup>2</sup> Intelligent Transportation Systems Research Center, Wuhan University of Technology<br>
+            <sup>3</sup> Hubei Key Laboratory of Distributed System Security, School of Cyber Science and Engineering, 
+            Huazhong University of Science and Technology<br>
+            ∗ Corresponding author
+        </div>
+
+        <div class="badges">
+            <a href="https://github.com/he-zhican/ConvoyLLM" class="badge code-badge">
+                <i class="fab fa-github"></i> Code Repository
+            </a>
+            <a href="https://arxiv.org/abs/2502.17529" class="badge arxiv-badge">
+                <i class="fas fa-file-pdf"></i> arXiv Paper
+            </a>
+        </div>
+    </header>
+
+    <section id="abstract">
+        <h2>Abstract</h2>
+        <p>
+            This paper proposes a novel method for multi-lane convoy formation control that uses large language models (LLMs) to tackle coordination challenges in dynamic highway environments. Each connected and autonomous vehicle in the convoy uses a knowledge-driven approach to make real-time adaptive decisions based on various scenarios. Our method enables vehicles to dynamically perform tasks, including obstacle avoidance, convoy joining/leaving, and escort formation switching, all while maintaining the overall convoy structure. We design a Interlaced formation control strategy based on locally dynamic distributed graphs, ensuring the convoy remains stable and flexible. We conduct extensive experiments in the SUMO simulation platform across multiple traffic scenarios, and the results demonstrate that the proposed method is effective, robust, and adaptable to dynamic environments.
+        </p>
+    </section>
+
+    <!-- Framework -->
+    <section id="framework">
+        <h2>Framework</h2>
+        <img src="images/overview.png" alt="System Framework Overview" class="framework-img">
+		<p>
+			The overall framework of the multi-lane convoy formation control method. It contains a total of five modules: 
+			environment, <strong>reasoning, shared memory, trajectory planning</strong>, and control. The reasoning module obtains the 
+			perception results from the environment and generates the target lanes and target speeds of the vehicles, 
+			the trajectory planning module obtains the target values and generates the trajectories of each vehicle in 
+			the convoy, and finally the control module outputs the acceleration and steering angle commands, which are 
+			then applied to the environment.
+		</p>
+    </section>
+
+    <!-- Reasoning Module -->
+    <section id="reasoning">
+        <h2>Reasoning Module</h2>
+        <img src="images/ReasoningModule.png" alt="Reasoning Module Architecture" class="framework-img">
+		<p>
+			A case of the Reasoning module process. This simple obstacle avoidance scenario illustrates how the reasoning module 
+			collects information from the ego vehicle, environment vehicles, and neighbors, then generates a scene description 
+			for decision-making by the large model. In the figure, veh7 changes lanes to the right due to a slow vehicle ahead, 
+			while veh3 outputs an IDLE decision to follow the neighboring vehicle in the same lane.
+		</p>
+    </section>
+	
+	<!-- Trajectory Planning Module -->
+    <section id="Trajectory">
+        <h2>Trajectory Planning Module</h2>
+        <img src="images/local_graph.png" alt="Trajectory Planning Architecture" class="framework-img">
+	<p>
+        <strong>Interlaced Formation:</strong> Compared to a parallel formation, the interlaced formation offers better flexibility, 
+        providing more lane-change space for vehicles in adjacent lanes, significantly reducing the risk of merging conflicts.
+    </p>
+    <p>
+        <strong>Neighboring Nodes:</strong> The nearest vehicles in the forward and backward directions within the ego vehicle’s 
+        communication range on any lane are defined as neighboring nodes, including:
+    </p>
+	<p>
+		\[
+		\begin{bmatrix}
+		\dot{x} \\
+		\dot{y}
+		\end{bmatrix}
+		=
+		\left[
+		\begin{array}{ccc}
+		\sum\limits_{n\in\mathcal{N}} w_n \cdot ((x_n - x_{ego}) - d_{desired}) \\
+		w_y \cdot (y_{target\_lane} - y_{ego})
+		\end{array}
+		\right]
+		+
+		\left[
+		\begin{array}{ccc}
+		v_{target\_x} \\
+		0
+		\end{array}
+		\right]
+		\]
+	</p>
+    </section>
+
+    <!-- Results 部分重构 -->
+    <section id="results">
+        <h2>Experimental Results</h2>
+
+        <div class="sub-section">
+            <h3>Avoiding Obstacles</h3>
+            <div class="video-vertical">
+        <video controls>
+            <source src="videos/scene1_20.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <video controls>
+            <source src="videos/scene1_30.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <video controls>
+            <source src="videos/scene1_40.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+        </div>
+
+        <div class="sub-section">
+            <h3>Joining The Convoy</h3>
+            <div class="video-grid">
+                <video controls>
+                    <source src="videos/scene2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <div class="sub-section">
+            <h3>Leaving The Convoy</h3>
+            <div class="video-grid">
+                <video controls>
+                    <source src="videos/scene3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <div class="sub-section">
+            <h3>Switching to Escort Formation</h3>
+            <div class="video-grid">
+                <video controls>
+                    <source src="videos/scene4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
