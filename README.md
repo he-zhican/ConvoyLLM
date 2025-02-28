@@ -50,4 +50,4 @@ If you have any questions, please contact Zhican He via email (hezhican@whut.edu
   year={2025}}
 ```
 # License
-DiLu is released under the Apache 2.0 license.
+This repository is released under the Apache 2.0 license.
