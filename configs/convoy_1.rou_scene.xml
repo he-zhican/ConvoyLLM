@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes >
+  <vType accel="1.0" decel="50.0" id="Car0" length="4.0" width="1.8" maxSpeed="30.0" sigma="0.0" tau="0.025" minGap="0" color="1,1,0" lcKeepRight="0"/>
+
+  <trip  id="veh1" type="Car0" depart="0" departPos="50" from="E0" to="E0" departSpeed="25.0" departLane="2" arrivalLane="2"/>
+  <trip  id="veh2" type="Car0" depart="0" departPos="90" from="E0" to="E0" departSpeed="25.0" departLane="0" arrivalLane="0"/>
+  <trip  id="veh3" type="Car0" depart="0" departPos="95" from="E0" to="E0" departSpeed="25.0" departLane="1" arrivalLane="1"/>
+  <trip  id="veh4" type="Car0" depart="0" departPos="100" from="E0" to="E0" departSpeed="25.0" departLane="0" arrivalLane="0"/>
+  <trip  id="veh5" type="Car0" depart="0" departPos="105" from="E0" to="E0" departSpeed="25.0" departLane="1" arrivalLane="1"/>
+  <trip  id="veh6" type="Car0" depart="0" departPos="110" from="E0" to="E0" departSpeed="25.0" departLane="0" arrivalLane="0"/>
+  <trip  id="veh7" type="Car0" depart="0" departPos="115" from="E0" to="E0" departSpeed="25.0" departLane="1" arrivalLane="1"/>
+  <trip  id="veh8" type="Car0" depart="0" departPos="120" from="E0" to="E0" departSpeed="25.0" departLane="0" arrivalLane="0"/>
+</routes>

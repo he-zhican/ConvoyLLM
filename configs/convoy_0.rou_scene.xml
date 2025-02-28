@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType accel="1.0" decel="50.0" id="Car0" length="4.0" width="1.8" maxSpeed="30.0" sigma="0.0" tau="0.025"
+           minGap="0" color="1,1,0" lcKeepRight="0"/>
+    <vType accel="5.0" decel="50.0" id="Car1" length="4.0" width="1.8" maxSpeed="30.0" sigma="0.0" tau="0.025"
+           minGap="0" color="0,1,0" lcKeepRight="0"/>
+    <vType accel="5.0" decel="50.0" id="Car2" length="4.0" width="1.8" maxSpeed="16.0" sigma="0.0" carFollowModel="ACC"
+           laneChangeModel="LC2013" tau="0.025" minGap="0" color="0,0,1" lcKeepRight="0"/>
+    <vType accel="5.0" decel="4.5" id="Car3" length="4.0" width="1.8" maxSpeed="20.0" sigma="0.5" carFollowModel="ACC"
+           laneChangeModel="LC2013" tau="0.025" minGap="0" color="0,1,0" lcKeepRight="0"/>
+
+    <vTypeDistribution id="conservative_evs">
+        <vType accel="5.0" decel="5.0" id="ev_0" length="4.0" width="1.8" maxSpeed="20.0" sigma="0.5"
+               carFollowModel="IDM" tau="0.025" minGap="5" color="1,0,0" lcStrategic="0.0" lcCooperative="0.2"
+               lcSpeedGain="0.0" lcKeepRight="0.0" lcPushy="0" lcPushyGap="0.0" probability="0.6"/>
+        <vType accel="5.0" decel="5.0" id="ev_1" length="4.0" width="1.8" maxSpeed="22.0" sigma="0.5"
+               carFollowModel="IDM" tau="0.025" minGap="5" color="1,0,0" lcStrategic="0.0" lcCooperative="0.2"
+               lcSpeedGain="0.0" lcKeepRight="0.0" lcPushy="0" lcPushyGap="0.0" probability="0.3"/>
+        <vType accel="5.0" decel="5.0" id="ev_2" length="4.0" width="1.8" maxSpeed="25.0" sigma="0.5"
+               carFollowModel="IDM" tau="0.025" minGap="5" color="1,0,0" lcStrategic="0.0" lcCooperative="0.2"
+               lcSpeedGain="0.0" lcKeepRight="0.0" lcPushy="0" lcPushyGap="0.0" probability="0.1"/>
+    </vTypeDistribution>
+
+    <trip id="veh1" type="Car0" depart="0" departPos="50" from="E0" to="E1" departSpeed="25.0" departLane="1"
+          arrivalLane="1"/>
+    <trip id="veh2" type="Car0" depart="0" departPos="55" from="E0" to="E1" departSpeed="25.0" departLane="0"
+          arrivalLane="0"/>
+    <trip id="veh3" type="Car0" depart="0" departPos="60" from="E0" to="E1" departSpeed="25.0" departLane="1"
+          arrivalLane="1"/>
+    <trip id="veh4" type="Car0" depart="0" departPos="65" from="E0" to="E1" departSpeed="25.0" departLane="0"
+          arrivalLane="0"/>
+    <trip id="veh5" type="Car0" depart="0" departPos="70" from="E0" to="E1" departSpeed="25.0" departLane="1"
+          arrivalLane="1"/>
+    <trip id="veh6" type="Car0" depart="0" departPos="75" from="E0" to="E1" departSpeed="25.0" departLane="0"
+          arrivalLane="0"/>
+    <trip id="veh7" type="Car0" depart="0" departPos="80" from="E0" to="E1" departSpeed="25.0" departLane="1"
+          arrivalLane="1"/>
+    <trip id="veh8" type="Car0" depart="0" departPos="85" from="E0" to="E1" departSpeed="25.0" departLane="0"
+          arrivalLane="0"/>
+
+    <!--  The number variable is used to modify the number of environment vehicles -->
+    <flow id="surround_cars" type="conservative_evs" begin="0" end="0" number="20" departSpeed="max" departPos="random"
+          departLane="random">
+        <route edges="E0"/>
+    </flow>
+
+</routes>

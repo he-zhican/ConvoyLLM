@@ -1,0 +1,17 @@
+
+############ Large language model config ############
+# ollama config or openai config
+OPENAI_KEY: "sk-xxxxxx" # 'sk-xxxxxx'
+OPENAI_CHAT_MODEL: "llama3.3:latest" # 'gpt-4-1106-preview' Alternative models: 'gpt-3.5-turbo-16k-0613' (note: performance may vary)
+OPENAI_EMBEDDING_MODEL: "mxbai-embed-large:latest"
+OPENAI_API_BASE: "http://localhost:11434/v1"
+
+############### settings ############
+SUMO_HOME: '/usr/bin/' # the path to the folder where the sumo,sumo-gui
+few_shot_num: 3 # 0 for zero-shot
+episodes_num: 50 # run episodes
+memory_path: 'memories/20_mem'
+result_folder: 'results'
+simulation_duration: 2000 # step
+all_vehicles_decision: False # To save simulation time, you can choose to make decisions only on the vehicle at the front of the lane, and the other vehicles will default to IDLE
+task: 0 # [0,1,2,3] <--> [avoiding obstacles, joining convoy, leaving convoy, switching the escort formation]

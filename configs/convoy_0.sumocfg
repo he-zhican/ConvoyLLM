@@ -1,0 +1,18 @@
+<configuration>
+    <input>
+        <net-file value="highway_0.net.xml"/>
+        <route-files value="convoy_0.rou_scene.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="800"/>
+        <step-length value="0.025"/>
+        <max-depart-delay value="10"/>
+    </time>
+     <processing>
+        <no-step-log value="true"/>
+    </processing>
+    <report>
+        <no-warnings value="true"/>
+    </report>
+</configuration>
