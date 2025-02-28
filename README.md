@@ -13,10 +13,10 @@ The overall framework of the multi-lane convoy formation control method. It cont
 A case of the Reasoning module process. This simple obstacle avoidance scenario illustrates how the reasoning module collects information from the ego vehicle, environment vehicles, and neighbors, then generates a scene description for decision-making by the large model. In the figure, veh7 changes lanes to the right due to a slow vehicle ahead, while veh3 outputs an IDLE decision to follow the neighboring vehicle in the same lane.
 
 # Gettting Started
-## SUMO Install
+## Install SUMO
 The SUMO version we used is 1.21.0. You can click this link to install [SUMO](https://sumo.dlr.de/docs/Installing/index.html).
-## Ollama Install
-We use a local LLM based on ollama deployment, and LLM uses llama3.3:70b.
+## Install Ollama
+We use a local LLM based on Ollama deployment, and LLM uses llama3.3:70b.
 You can click this link to install [Ollama](https://ollama.com/).
 ## Install dependencies
 - Create a new conda virtual env
