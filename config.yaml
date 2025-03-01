@@ -1,6 +1,7 @@
 
 ############ Large language model config ############
 # ollama config or openai config
+OPENAI_API_TYPE: "ollama" # 'ollama' or 'openai'
 OPENAI_KEY: "sk-xxxxxx" # 'sk-xxxxxx'
 OPENAI_CHAT_MODEL: "llama3.3:latest" # 'gpt-4-1106-preview' Alternative models: 'gpt-3.5-turbo-16k-0613' (note: performance may vary)
 OPENAI_EMBEDDING_MODEL: "mxbai-embed-large:latest"
