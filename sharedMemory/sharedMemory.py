@@ -13,7 +13,12 @@ class SharedMemory:
             # 'sce_encode' is deprecated for now.
             raise ValueError("encode_type sce_encode is deprecated for now.")
         elif encode_type == 'sce_language':
-            self.embedding = OllamaEmbeddings(model=os.environ['OPENAI_EMBEDDING_MODEL'])
+            if os.environ["OPENAI_API_TYPE"] == 'ollama':
+                self.embedding = OllamaEmbeddings(model=os.environ['OPENAI_EMBEDDING_MODEL'])
+            elif os.environ["OPENAI_API_TYPE"] == 'openai':
+                self.embedding = OpenAIEmbeddings()
+            else:
+                raise ValueError("Unknown OPENAI_API_TYPE: should be ollama or openai")
             db_path = os.path.join(
                 './db', 'chroma_5_shot_20_mem/') if db_path is None else db_path
 
