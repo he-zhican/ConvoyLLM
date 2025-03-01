@@ -18,6 +18,7 @@ test_list_seed = [52, 5838, 2421, 7294, 9650, 4176, 6382, 8765, 1348, 5326,
 
 
 def setup_env(config):
+    os.environ["OPENAI_API_TYPE"] = config['OPENAI_API_TYPE']
     os.environ["OPENAI_API_KEY"] = config['OPENAI_KEY']
     os.environ["OPENAI_CHAT_MODEL"] = config['OPENAI_CHAT_MODEL']
     os.environ["OPENAI_EMBEDDING_MODEL"] = config['OPENAI_EMBEDDING_MODEL']
