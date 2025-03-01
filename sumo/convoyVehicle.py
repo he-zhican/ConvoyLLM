@@ -38,9 +38,6 @@ class ConvoyVehicle(Vehicle):
         self.neighborhoods = [None] * 6
         self.surround_evs = []
 
-        self.ev_on_desired_lane = False  # 自车期望车道上是否有环境车（用于简单的基于规则避障，仅测试用）
-        self.ev_on_lanes = [False] * 3  # 存储三条车道上是否有环境车辆（用于简单的基于规则避障，仅测试用）
-
     def update_state(self, client):
         super().update_state(client)
         self.new_G_force = 0
@@ -135,33 +132,6 @@ class ConvoyVehicle(Vehicle):
 
         self.surround_evs = surround_evs[:n]
         return self.surround_evs
-
-    def void_obstacles(self, e_vehicles):
-        collision_distance = 100  # 与障碍车辆的最小安全距离
-        for ev in e_vehicles:
-            if ev is not None:
-                dis = Road.relation_distance(self.x, ev.x)
-                # 当此车是头车且与障碍车辆位于同一车道，与障碍车辆的距离小于安全距离，则需要变道
-                if 0 <= dis <= collision_distance:
-                    self.ev_on_lanes[ev.lane] = True
-                if -collision_distance / 2 <= dis <= collision_distance:
-                    self.ev_on_desired_lane = True
-
-        if self.neighborhoods[2] is None:
-            if self.lane == 0 and self.ev_on_lanes[0]:
-                self.target_lane = 1
-            if self.lane == 1:
-                if self.ev_on_lanes[1] and not self.ev_on_lanes[0]:
-                    self.target_lane = 0
-                elif self.ev_on_lanes[1] and not self.ev_on_lanes[2]:
-                    self.target_lane = 2
-                # elif self.ev_on_lanes[1]:
-                #     self.target_speed = self.speed - 1
-            if self.lane == 2 and self.ev_on_lanes[2]:
-                self.target_lane = 1
-
-        if not self.ev_on_desired_lane:
-            self.target_lane = self.desired_lane
 
     def graph_force(self):
         count = 0
