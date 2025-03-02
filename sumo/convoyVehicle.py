@@ -23,11 +23,11 @@ class ConvoyVehicle(Vehicle):
         self.communication_distance = 60  # The maximum communication distance between vehicles
         self.perceive_distance = 150  # The maximum distance of the vehicle that perceives the environment vehicles
 
-        self.old_G_force = 0  # 图的虚拟力
+        self.old_G_force = 0
         self.new_G_force = 0
-        self.old_L_force = 25.0  # 势场的纵向虚拟力
+        self.old_L_force = 25.0
         self.new_L_force = 25.0
-        self.old_H_force = 0  # 势场的横向虚拟力
+        self.old_H_force = 0
         self.new_H_force = 0
         self.new_x = 0
         self.new_y = 0
