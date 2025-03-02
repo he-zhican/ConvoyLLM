@@ -43,6 +43,7 @@ class MultiTaskPrompts:
         return system_messages[self.state] + common_message
 
     def get_human_message(self, scenario_description, available_actions):
+        lanes = {0: "the rightmost lane", 1: "the middle lane", 2: "the leftmost lane"}
         # avoid obstacles
         human_message_0 = textwrap.dedent(f"""\
                 Above messages are some examples of how you make a decision successfully in the past. Those scenarios are similar to the current scenario. You should refer to those examples to make a decision for the current scenario. 
@@ -71,12 +72,12 @@ class MultiTaskPrompts:
                 {self.delimiter} convoy scenario description:
                 {scenario_description}
                 {self.delimiter} Driving Intentions:
-                1. Your should change lane to the middle lane.
+                1. You should change lane to your desired lane which is {lanes[self.ego.desired_lane]}.
                 2. If you are behind the convoy of vehicles, you need to speed up to catch up with the convoy.
                 3. Limit speed is 15~30 m/s.
                 {self.delimiter} Available actions:
                 {available_actions}
-        s
+        
                 You can stop reasoning once you have a valid action to take. 
                 """)
         # leave the convoy
@@ -105,7 +106,6 @@ class MultiTaskPrompts:
             "veh7": "You should ahead the veh4 about 10 meters on the same lane",
             "veh8": "You should ahead the veh7 about 10 meters on the same lane",
         }
-        lanes = {0: "the rightmost lane", 1: "the middle lane", 2: "the leftmost lane"}
         human_message_3 = textwrap.dedent(f"""\
                 Above messages are some examples of how you make a decision successfully in the past. Those scenarios are similar to the current scenario. You should refer to those examples to make a decision for the current scenario. 
 
