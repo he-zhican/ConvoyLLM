@@ -231,14 +231,14 @@ class ConvoyVehicle(Vehicle):
         dx += TIMESTEP * self.new_L_force * L_dv.x + TIMESTEP * self.new_H_force * H_dv.x
         dy += TIMESTEP * self.new_L_force * L_dv.y + TIMESTEP * self.new_H_force * H_dv.y
 
-        self.controller(self.x + dx, self.y + dy, ((dx ** 2 + dy ** 2) ** 0.5) / TIMESTEP)
+        # self.controller(self.x + dx, self.y + dy, ((dx ** 2 + dy ** 2) ** 0.5) / TIMESTEP)
 
-        # desired_angle = math.atan2(dy, dx)
-        # angle_error = desired_angle - self.heading
-        #
-        # self.heading += angle_error
-        # self.new_x = self.x + dx
-        # self.new_y = self.y + dy
+        desired_angle = math.atan2(dy, dx)
+        angle_error = desired_angle - self.heading
+        
+        self.heading += angle_error
+        self.new_x = self.x + dx
+        self.new_y = self.y + dy
 
         self.old_G_force = self.new_G_force
         self.old_L_force = self.new_L_force
