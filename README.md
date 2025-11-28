@@ -1,6 +1,6 @@
 # ConvoyLLM: Dynamic Multi-Lane Convoy Control Using LLMs
 
-## [Paper](https://arxiv.org/abs/2502.17529) & [Project Page](https://he-zhican.github.io/ConvoyLLM)
+## [Paper](https://ieeexplore.ieee.org/document/11246659) & [Project Page](https://he-zhican.github.io/ConvoyLLM)
 This is the official implementation of the paper ConvoyLLM: Dynamic Multi-Lane Convoy Control Using LLMs.
 
 ## Introduction
